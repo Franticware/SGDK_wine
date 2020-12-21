@@ -7,9 +7,8 @@
 # make GDK=/path/to/sgdk -f /path/to/sgdk/makefile_wine.gen
 
 # Tested with SGDK 1.51, see github.com/Stephane-D/SGDK
-# Known issues: File names/paths with spaces cause issues.
 
-# By Vojtěch Salajka, 2020-12 
+# By Vojtěch Salajka, 2020-12, github.com/Franticware
 # License: MIT
 
 for f in $( ls *.exe ); do 
@@ -23,8 +22,8 @@ echo -n "/.wineconf wine " >> $f
 echo -n $CURRENT >> $f
 echo -n "/" >> $f
 echo -n $f >> $f
-echo -n ".exe $" >> $f
-echo "@" >> $f
+echo -n ".exe \"$" >> $f
+echo "@\"" >> $f
 chmod +x $f
 done
 
