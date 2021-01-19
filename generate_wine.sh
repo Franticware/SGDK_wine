@@ -9,15 +9,17 @@
 
 # Tested with SGDK 1.60, see github.com/Stephane-D/SGDK/releases
 
-# By Vojtěch Salajka, 2020-12, github.com/Franticware
+# By Vojtěch Salajka, 2021-01, github.com/Franticware
 # License: MIT
+
+# Known issues: The file makelib.gen does not work with this method.
 
 for f in $( ls *.exe ); do 
 CURRENT=$(pwd)
 f=$(echo $f | sed 's/.exe$//')
 echo $f
 echo "#!/bin/bash" > $f
-echo -n "WINEPREFIX=" >> $f
+echo -n "WINEDEBUG=-all WINEPREFIX=" >> $f
 echo -n $CURRENT >> $f
 echo -n "/.wineconf wine " >> $f
 echo -n $CURRENT >> $f
