@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Rev. 1.60-2
+
 # This script generates wine wrapper for each exe in the SGDK bin directory.
 # It also generates makefile_wine.gen (same as makefile.gen with variables 
 # RM, CP and MKDIR set to native unix utilities and SHELL removed).
