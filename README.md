@@ -13,7 +13,8 @@ The following command should then be able to build any SGDK project:
 ```
 make GDK=/path/to/sgdk -f /path/to/sgdk/makefile_wine.gen
 ```
-I have tested it only on my Linux distribution (Manjaro). It would be much appreciated if you shared your own experience here:
+I have tested it on my Linux distribution (Manjaro). According to users' reports, it works on Debian-based distros as well.
+It would be much appreciated if you shared your own experience here:
 https://github.com/Franticware/SGDK_wine/discussions/4
 
 More information about SGDK can be found in the official repository: https://github.com/Stephane-D/SGDK
