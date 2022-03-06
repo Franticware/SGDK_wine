@@ -1,5 +1,7 @@
 # SGDK_wine
 
+The script does not work with the latest SGDK 1.70, but fix is being worked on.
+
 The generate_wine.sh script generates a wine wrapper for each exe in the SGDK bin directory. It also generates makefile_wine.gen.
 
 It should be run once from within the SGDK bin directory:
