@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Rev. 1.62-1
+# Rev. 1.70-1
 
 # This script generates wine wrapper for each exe in the SGDK bin directory.
 # It also generates makefile_wine.gen (same as makefile.gen with variables 
@@ -9,9 +9,9 @@
 # The following command should then be able to build any SGDK project:
 # make GDK=/path/to/sgdk -f /path/to/sgdk/makefile_wine.gen
 
-# Tested with SGDK 1.62, see github.com/Stephane-D/SGDK/releases
+# Tested with SGDK 1.70, see github.com/Stephane-D/SGDK/releases
 
-# By Vojtěch Salajka, 2021-03, github.com/Franticware
+# By Vojtěch Salajka, 2022-03, github.com/Franticware
 # License: MIT
 
 # Known issues: The file makelib.gen does not work with this method.
@@ -32,11 +32,28 @@ echo "@\"" >> $f
 chmod +x $f
 done
 
-echo "RM= rm" > ../makefile_wine.gen
-echo "CP= cp" >> ../makefile_wine.gen
-echo "MKDIR= mkdir" >> ../makefile_wine.gen
-echo >> ../makefile_wine.gen
-cat ../makefile.gen | \
-  grep -v SHELL= | grep -v RM= | grep -v CP= | grep -v MKDIR= | \
-  grep -v "SHELL :=" | grep -v "RM :=" | grep -v "CP :=" | grep -v "MKDIR :=" \
-  >> ../makefile_wine.gen
+DIVLINE=$(grep -n -m 1 common.mk ../makefile.gen | sed  's/\([0-9]*\).*/\1/')
+WINEGEN="../makefile_wine.gen"
+head -n $DIVLINE ../makefile.gen > $WINEGEN
+tail +42 $0 >> $WINEGEN
+tail +$DIVLINE ../makefile.gen | tail +2 >> $WINEGEN
+: <<'# end of section'
+
+# section added by generate_wine.sh
+RM= rm
+CP= cp
+MKDIR= mkdir
+CC= $(GDK)/bin/gcc
+LD= $(GDK)/bin/ld
+NM= $(GDK)/bin/nm
+JAVA= java
+ECHO= echo
+OBJCPY= $(GDK)/bin/objcopy
+ASMZ80= $(GDK)/bin/sjasm
+MACCER= $(GDK)/bin/mac68k
+SIZEBND= $(JAVA) -jar $(GDK)/bin/sizebnd.jar
+BINTOS= $(GDK)/bin/bintos
+RESCOMP= $(JAVA) -jar $(GDK)/bin/rescomp.jar
+release: LIBGCC= $(LIB)/libgcc.a
+debug: LIBGCC= $(LIB)/libgcc.a
+# end of section
