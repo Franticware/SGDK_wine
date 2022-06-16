@@ -29,25 +29,24 @@ done
 DIVLINE=$(grep -n -m 1 common.mk ../makefile.gen | sed  's/\([0-9]*\).*/\1/')
 WINEGEN="../makefile_wine.gen"
 head -n $DIVLINE ../makefile.gen > $WINEGEN
-tail +36 "$0" >> $WINEGEN
-tail +$DIVLINE ../makefile.gen | tail +2 >> $WINEGEN
-: <<'# end of section'
-
+cat >> $WINEGEN <<EOF
 # section added by generate_wine.sh
 RM= rm
 CP= cp
 MKDIR= mkdir
-CC= $(GDK)/bin/gcc
-LD= $(GDK)/bin/ld
-NM= $(GDK)/bin/nm
+CC= \$(GDK)/bin/gcc
+LD= \$(GDK)/bin/ld
+NM= \$(GDK)/bin/nm
 JAVA= java
 ECHO= echo
-OBJCPY= $(GDK)/bin/objcopy
-ASMZ80= $(GDK)/bin/sjasm
-MACCER= $(GDK)/bin/mac68k
-SIZEBND= $(JAVA) -jar $(GDK)/bin/sizebnd.jar
-BINTOS= $(GDK)/bin/bintos
-RESCOMP= $(JAVA) -jar $(GDK)/bin/rescomp.jar
-release: LIBGCC= $(LIB)/libgcc.a
-debug: LIBGCC= $(LIB)/libgcc.a
+OBJCPY= \$(GDK)/bin/objcopy
+ASMZ80= \$(GDK)/bin/sjasm
+MACCER= \$(GDK)/bin/mac68k
+SIZEBND= \$(JAVA) -jar \$(GDK)/bin/sizebnd.jar
+BINTOS= \$(GDK)/bin/bintos
+RESCOMP= \$(JAVA) -jar \$(GDK)/bin/rescomp.jar
+release: LIBGCC= \$(LIB)/libgcc.a
+debug: LIBGCC= \$(LIB)/libgcc.a
 # end of section
+EOF
+tail +$DIVLINE ../makefile.gen | tail +2 >> $WINEGEN
