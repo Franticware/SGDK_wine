@@ -18,24 +18,18 @@
 
 for f in $( ls *.exe ); do 
 CURRENT=$(pwd)
-f=$(echo $f | sed 's/.exe$//')
-echo $f
-echo "#!/bin/bash" > $f
-echo -n "WINEDEBUG=-all WINEPREFIX=" >> $f
-echo -n $CURRENT >> $f
-echo -n "/.wineconf wine " >> $f
-echo -n $CURRENT >> $f
-echo -n "/" >> $f
-echo -n $f >> $f
-echo -n ".exe \"$" >> $f
-echo "@\"" >> $f
-chmod +x $f
+f="$(echo $f | sed 's/.exe$//')"
+echo "$f"
+echo "#!/bin/bash" > "$f"
+echo 'BIN_DIR="$(dirname "$0")"' >> "$f"
+echo 'WINEDEBUG=-all WINEPREFIX="$BIN_DIR/.wineconf" wine "$BIN_DIR/$(basename "$0").exe" "$@"' >> "$f"
+chmod +x "$f"
 done
 
 DIVLINE=$(grep -n -m 1 common.mk ../makefile.gen | sed  's/\([0-9]*\).*/\1/')
 WINEGEN="../makefile_wine.gen"
 head -n $DIVLINE ../makefile.gen > $WINEGEN
-tail +42 $0 >> $WINEGEN
+tail +36 "$0" >> $WINEGEN
 tail +$DIVLINE ../makefile.gen | tail +2 >> $WINEGEN
 : <<'# end of section'
 
