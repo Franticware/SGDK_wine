@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Rev. 1.70-1
+# Rev. 1.80-1
 
 # This script generates wine wrapper for each exe in the SGDK bin directory.
 # It also generates makefile_wine.gen (same as makefile.gen with variables 
@@ -9,9 +9,9 @@
 # The following command should then be able to build any SGDK project:
 # make GDK=/path/to/sgdk -f /path/to/sgdk/makefile_wine.gen
 
-# Tested with SGDK 1.70, see github.com/Stephane-D/SGDK/releases
+# Tested with SGDK 1.80, see github.com/Stephane-D/SGDK/releases
 
-# By Vojtěch Salajka, 2022-03, github.com/Franticware
+# By Vojtěch Salajka, 2022-09, github.com/Franticware
 # License: MIT
 
 # Known issues: The file makelib.gen does not work with this method.
